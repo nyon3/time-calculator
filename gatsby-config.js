@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Time Calculator`,
+    description: `Calculate time difference between the start time and the end time.`,
+    author: `@Tomo_anz`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

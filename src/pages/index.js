@@ -1,22 +1,41 @@
 
 import React, { useState } from "react"
 import Layout from "../components/layout"
+
+// Styling
 import { Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 import "./global.sass"
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 const IndexPage = () => {
   const [arrivedHour, setArrivedHour] = useState(0);
   const [arrivedMinute, setArrivedMinute] = useState(0);
   const [hour, setHour] = useState(0);
   const [minute, setMinute] = useState(0);
+
   const today = new Date();
   const year = today.getFullYear();
   const month = today.getMonth();
   const date = today.getDate();
-
   const currentHour = today.getHours();
   const currentMinute = today.getMinutes();
+
+  const classes = useStyles();
 
   //   make list for minutes
   const hours = [...Array(12)].map((_, i) => i + 10);
@@ -27,9 +46,9 @@ const IndexPage = () => {
     time.label = hour;
 
     return (
-      <option value={time.value} label={time.label}>
+      <MenuItem value={time.value} label={time.label}>
         {time.label}
-      </option>
+      </MenuItem>
     );
   });
 
@@ -66,41 +85,49 @@ const IndexPage = () => {
   return (
     <Layout title="" description="">
 
-      <div className="section has-text-centered">
-        <h1 className="test">Arrived at </h1>
-        <br />
-        <div class="select is-large">
-          <select
-            class="select is-large"
-            value={arrivedHour}
-            onChange={(e) => setArrivedHour(e.target.value)}
-          >
-            <option value="">Hour</option>
-            {hoursList}
-          </select>
-        </div>
-        <div class="select is-large">
-          <select
-
-            value={arrivedMinute}
-            onChange={(e) => setArrivedMinute(e.target.value)}
-          >
-            <option value="">Minute</option>
-            {minuteList}
-          </select>
-        </div>
-        <br />
-        <p>{`Leaving at ${currentHour} : ${currentMinute} `}</p>
-        <br />
-        <h1 className="is-size-2 has-text-weight-bold">{`Total ${hour} : ${minute} `}</h1>
-        <br />
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={handleSubmit}
-        >Submit
+      <div className="content">
+        <div>
+          <h2>Customer arrived at</h2>
+          <br />
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel id="demo-simple-select-outlined-label">Hour</InputLabel>
+            <Select
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
+              value={arrivedHour}
+              onChange={(e) => setArrivedHour(e.target.value)}
+              label="Hour"
+            >
+              <option value="">Hour</option>
+              {hoursList}
+            </Select>
+          </FormControl>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel id="demo-simple-select-outlined-label">Minute</InputLabel>
+            <Select
+              value={arrivedMinute}
+              onChange={(e) => setArrivedMinute(e.target.value)}
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
+              label="Minute"
+            >
+              <option value="">Minute</option>
+              {minuteList}
+            </Select>
+          </FormControl>
+          <br />
+          <p className="currentTime">{`Leaving at ${currentHour} : ${currentMinute} `}</p>
+          <br />
+          <h1>{`Total ${hour} : ${minute} `}</h1>
+          <br />
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={handleSubmit}
+          >Submit
         </Button>
-        <br />
+          <br />
+        </div>
       </div>
     </Layout>
   );

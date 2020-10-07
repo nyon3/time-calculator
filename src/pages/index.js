@@ -37,9 +37,8 @@ const IndexPage = () => {
 
   const classes = useStyles();
 
-  //   make list for minutes
+  //   make list for hours
   const hours = [...Array(12)].map((_, i) => i + 10);
-
   const hoursList = hours.map((hour) => {
     const time = {};
     time.value = hour;
@@ -52,6 +51,7 @@ const IndexPage = () => {
     );
   });
 
+  //  make list for minutes
   const minutes = [...Array(60)].map((_, j) => j + 1);
   const minuteList = minutes.map((minute) => {
     const m = {};
@@ -59,9 +59,9 @@ const IndexPage = () => {
     m.label = minute;
 
     return (
-      <option value={m.value} label={m.label}>
+      <MenuItem value={m.value} label={m.label}>
         {m.label}
-      </option>
+      </MenuItem>
     );
   });
 
@@ -121,6 +121,7 @@ const IndexPage = () => {
           <h1>{`Total ${hour} : ${minute} `}</h1>
           <br />
           <Button
+            size="large"
             color="primary"
             variant="contained"
             onClick={handleSubmit}
